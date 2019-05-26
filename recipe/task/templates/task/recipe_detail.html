@@ -1,0 +1,9 @@
+{% extends 'task/base.html' %}
+{% block content %}
+<h1><b>{{details.recipe_name}}</b></h1>
+<p>{{details.updated_at}}</p>
+<p>{{details.cheff_name.name}}</p>
+<p>Ingredients-{{details.ingeridents}}</p>
+<p>Process-{{details.process}}</p>
+<a class='btn btn-warning' href="{% url 'task:recipes_list'  %}">back</a>
+{% endblock %}

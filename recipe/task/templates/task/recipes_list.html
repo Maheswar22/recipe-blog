@@ -1,9 +1,9 @@
 {% extends 'task/base.html' %}
 {% block content %}
-{% if recipe_list %}
+{% if recipes_list %}
   {% for recipe in recipes_list %}
-    {{recipe.recipe_name}}
-    <a class="btn btn-danger" href="{% url 'task:delete_recipe' %}">DELETE</a>
+    <b><a href="{% url 'task:recipe_detail' recipe.pk %}">{{ recipe.recipe_name }}</a></b>
+    <a class="btn btn-danger" href="{% url 'task:delete_recipe' recipe.pk %}" role='button '>delete</a><br><br>
     {% endfor %}
 
 {% else %}

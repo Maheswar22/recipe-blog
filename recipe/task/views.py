@@ -35,7 +35,7 @@ def delete_recipe(request, pk):
 
 def recipe_detail(request,pk):
     details = Recipe.objects.get(pk=pk)
-    return render(request, 'blog/recipe_detail.html', {'details': details})
+    return render(request, 'task/recipe_detail.html', {'details': details})
 
 def signup(request):
     #import ipdb;ipdb.set_trace()
@@ -51,12 +51,11 @@ def signup(request):
         return render(request, 'task/signup.html', {})
 
 def cerate_recipe(request):
-    import ipdb; ipdb.set_trace()
+    #import ipdb; ipdb.set_trace()
     if request.method == "POST":
-        cheff_name = Cheff.objects.get(username=request.user.username)
-        recipe_name = request.POST['recipe_name']
-        ingeridents = request.POST['ingeridents']
-        process = request.POST['process']
+        user = request.user
+        u = User.objects.get(username=user)
+        cheff_name = Cheff.objects.get(username=u)
         Recipe.objects.create(
             cheff_name = cheff_name,
             recipe_name = request.POST['recipe_name'],
