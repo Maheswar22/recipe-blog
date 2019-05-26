@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Bootstrap 4.o cdn -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title></title>
+
+    <nav class="navbar  navbar-fixed-top navbar-inverse ">
+   <div class='container'>
+     <ul class='nav navbar-nav'>
+
+       <li><a class='navbar-brand bigbrand' href='{% url "task:index" %}'>HOME</a></li>
+     </ul>
+     <ul class='nav navbar-nav navbar-right'>
+       {% if user.is_authenticated %}
+       <li>
+         <a>Welcome <b>{{ user.username }}</b></a>
+       </li><br
+       <li>
+         <a href="{% url 'task:user_logout' %}">Log Out</a>
+       </li>
+
+       {% endif %}
+     </nav>
+   </div>
+</head>
+
+<body>
+<div class="jumbotron">
+    <div class="container-fluid">
+
+{% block content %}
+<form action="." method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    username <input type="text" name="username"><br><br>
+    password <input type="password" name="password"><br><br>
+
+    <input class="btn btn-default" type="submit" value="Login"><br><br>
+</form>
+<a class='btn btn-primary' href="{% url 'task:signup' %}">signup</a>
+{% endblock %}
+    </div>
+</div>
+</body>
+</html>

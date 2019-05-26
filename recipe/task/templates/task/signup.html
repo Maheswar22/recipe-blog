@@ -1,0 +1,11 @@
+{% extends 'task/base.html' %}
+{% block content %}
+<form class="" action="." method="post" enctype="multipart/form-data">
+{% csrf_token %}
+    name  <input type="text" name="name" placeholder="Enter Your Full Name"><br><br>
+    username  <input type="text" name="username" placeholder="Enter Your User Name"><br><br>
+    password  <input type="password" name="password" placeholder="Password"><br><br>
+    email  <input type="email" name="email" placeholder="example@mail.com"><br><br>
+    <input class="btn btn-primary" type="submit" value="signup">
+</form>
+{% endblock %}
