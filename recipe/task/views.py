@@ -50,7 +50,6 @@ def signup(request):
         return render(request, 'task/signup.html', {})
 
 def cerate_recipe(request):
-    #import ipdb; ipdb.set_trace()
     if request.method == "POST":
         user = request.user
         u = User.objects.get(username=user)
