@@ -10,18 +10,25 @@
 
     <nav class="navbar  navbar-fixed-top navbar-inverse ">
    <div class='container'>
+       {% if user.is_authenticated %}
      <ul class='nav navbar-nav'>
 
-       <li><a class='navbar-brand bigbrand' href='{% url "task:index" %}'>HOME</a></li>
+       <li><a class='navbar-brand bigbrand' href='{% url "task:recipes_list" %}'>HOME</a></li>
      </ul>
      <ul class='nav navbar-nav navbar-right'>
-       {% if user.is_authenticated %}
+
+
        <li>
          <a>Welcome <b>{{ user.username }}</b></a>
        </li><br
        <li>
          <a href="{% url 'task:user_logout' %}">Log Out</a>
        </li>
+         {% else %}
+         <ul class='nav navbar-nav'>
+
+       <li><a class='navbar-brand bigbrand' href='{% url "task:index" %}'>HOME</a></li>
+     </ul>
 
        {% endif %}
      </nav>

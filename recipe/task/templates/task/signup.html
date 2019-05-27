@@ -1,11 +1,33 @@
 {% extends 'task/base.html' %}
 {% block content %}
-<form class="" action="." method="post" enctype="multipart/form-data">
+<div align="center">
+    <table>
+<form class=""  method="post" enctype="multipart/form-data">
 {% csrf_token %}
-    name  <input type="text" name="name" placeholder="Enter Your Full Name"><br><br>
-    username  <input type="text" name="username" placeholder="Enter Your User Name"><br><br>
-    password  <input type="password" name="password" placeholder="Password"><br><br>
-    email  <input type="email" name="email" placeholder="example@mail.com"><br><br>
+    <tr>
+        <td>
+    name  <input type="text" name="name" placeholder="Enter Your Full Name">
+        </td>        </tr>
+    <tr>
+    username  <input type="text" name="username" placeholder="Enter Your User Name">
+    </tr>
+    <tr>
+        <td>
+    password  <input type="password" name="password" placeholder="Password">
+        </td>
+        </tr>
+    <tr>
+        <td>
+    email  <input type="email" name="email" placeholder="example@mail.com">
+        </td>
+        </tr>
+    <tr>
+        <td>
     <input class="btn btn-primary" type="submit" value="signup">
+        </td>
+    </tr>
 </form>
+        </table>
+</div>
+
 {% endblock %}

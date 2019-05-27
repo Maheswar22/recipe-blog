@@ -1,6 +1,6 @@
 {% extends 'task/base.html' %}
 {% block content %}
-<form action="." method="post" enctype="multipart/form-data">
+<form  method="post" enctype="multipart/form-data">
     {% csrf_token %}
     Recipe Name <input type="text" name="recipe_name" placeholder="Recipe Name"><br><br>
     Ingeridents <input type="text" name="ingeridents" placeholder="Ingeridents"><br><br>

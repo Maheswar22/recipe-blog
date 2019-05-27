@@ -25,7 +25,6 @@ def index(request):
         return render(request, 'task/base.html', {})
 
 def recipe_list(request):
-    #import ipdb; ipdb.set_trace()
     recipes_list = Recipe.objects.order_by('-updated_at')
     return render(request, 'task/recipes_list.html', {'recipes_list' : recipes_list})
 
@@ -38,14 +37,14 @@ def recipe_detail(request,pk):
     return render(request, 'task/recipe_detail.html', {'details': details})
 
 def signup(request):
-    #import ipdb;ipdb.set_trace()
+
     if request.method == 'POST':
         name = request.POST['name']
         username = request.POST['username']
         password = request.POST['password']
         email = request.POST['email']
         user = User.objects.create_user(username=username, email=email, password=password)
-        Cheff.objects.create(user=user, name=name)
+        Cheff.objects.create(username=user, name=name)
         return HttpResponseRedirect(reverse('task:index'))
     else:
         return render(request, 'task/signup.html', {})
