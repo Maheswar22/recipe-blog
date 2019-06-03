@@ -2,15 +2,16 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
-from .models import User,Cheff,Recipe
+from .models import User, Cheff, Recipe
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 # Create your views here.
 def index(request):
-
-    if request.method  == 'POST':
+    if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
@@ -24,20 +25,35 @@ def index(request):
     else:
         return render(request, 'task/base.html', {})
 
+
 def recipe_list(request):
     recipes_list = Recipe.objects.order_by('-updated_at')
-    return render(request, 'task/recipes_list.html', {'recipes_list' : recipes_list})
+    paginator = Paginator(recipes_list, 2)
+    page = request.GET.get('page')
+
+    try:
+        recipe_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        recipe_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        recipe_list = paginator.page(paginator.num_pages)
+
+    return render(request, 'task/recipes_list.html', {'recipe_list': recipe_list})
+
 
 def delete_recipe(request, pk):
     Recipe.objects.get(pk=pk).delete()
     return HttpResponseRedirect(reverse('task:recipes_list'))
 
-def recipe_detail(request,pk):
+
+def recipe_detail(request, pk):
     details = Recipe.objects.get(pk=pk)
     return render(request, 'task/recipe_detail.html', {'details': details})
 
-def signup(request):
 
+def signup(request):
     if request.method == 'POST':
         name = request.POST['name']
         username = request.POST['username']
@@ -49,20 +65,22 @@ def signup(request):
     else:
         return render(request, 'task/signup.html', {})
 
+
 def cerate_recipe(request):
     if request.method == "POST":
         user = request.user
         u = User.objects.get(username=user)
         cheff_name = Cheff.objects.get(username=u)
         Recipe.objects.create(
-            cheff_name = cheff_name,
-            recipe_name = request.POST['recipe_name'],
-            ingeridents = request.POST['ingeridents'],
-            process = request.POST['process'],
+            cheff_name=cheff_name,
+            recipe_name=request.POST['recipe_name'],
+            ingeridents=request.POST['ingeridents'],
+            process=request.POST['process'],
         )
         return HttpResponseRedirect(reverse('task:recipes_list'))
     else:
         return render(request, 'task/create_recipe.html', {})
+
 
 def user_logout(request):
     logout(request)

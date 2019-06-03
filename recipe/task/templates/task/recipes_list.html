@@ -1,7 +1,7 @@
 {% extends 'task/base.html' %}
 {% block content %}
-{% if recipes_list %}
-  {% for recipe in recipes_list %}
+{% if recipe_list %}
+  {% for recipe in recipe_list %}
   <table withd="100%">
     <thead>
 
@@ -17,6 +17,21 @@
     </thead>
     </table>
     {% endfor %}
+<div class="pagination">
+    <span class="step-links">
+        {% if recipe_list.has_previous %}
+            <a href="?page={{ recipe_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ recipe_list.number }} of {{ recipe_list.paginator.num_pages }}.
+        </span>
+
+        {% if recipe_list.has_next %}
+            <a href="?page={{ recipe_list.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
 
 {% else %}
 <p> No Recipes </p>
